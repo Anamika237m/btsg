@@ -24,12 +24,36 @@ const Controller = (() => {
     });
   }
 
-  function sendEnquiry(e) {
+  async function sendEnquiry(e) {
     e.preventDefault();
-    const f = new FormData(e.target);
-    const body = `Name: ${f.get("name")}\nPhone: ${f.get("phone")}\nEmail: ${f.get("email")}\nService: ${f.get("service")}\n\n${f.get("message")}`;
-    location.href = `mailto:${Model.contact.email}?subject=${encodeURIComponent("Enquiry: " + f.get("service"))}&body=${encodeURIComponent(body)}`;
+    const form = e.target, f = new FormData(form), C = Model.contact;
+    const d = new Date(), pad = (n) => String(n).padStart(2, "0");
+    const ref = `BTSG-${String(d.getFullYear()).slice(2)}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const subject = `[${ref}] Enquiry: ${f.get("service")}`;
+    if (!C.formKey) {
+      const body = `Reference: ${ref}\nName: ${f.get("name")}\nPhone: ${f.get("phone")}\nEmail: ${f.get("email")}\nService: ${f.get("service")}\n\n${f.get("message")}`;
+      location.href = `mailto:${C.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+    const msg = $("formMsg"), btn = form.querySelector("button");
+    btn.disabled = true; msg.textContent = "Sending...";
+    try {
+      const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: C.formKey, subject, reference: ref, from_name: Model.brand.short + " Website", name: f.get("name"), email: f.get("email"), phone: f.get("phone"), service: f.get("service"), message: f.get("message") }) });
+      const j = await r.json();
+      if (!j.success) throw new Error(j.message);
+      form.innerHTML = `<h3>Thank you — your enquiry has been sent.</h3><p>Your reference number is <b>${ref}</b>.</p><p>Our team will respond with next steps — typically within one business day.</p>`;
+    } catch (err) {
+      btn.disabled = false;
+      msg.textContent = `Your enquiry could not be sent. Please call ${C.phones[0]} or email ${C.email}.`;
+    }
   }
+
+  /* Request a Quote buttons: if already on the Contact page, scroll to the form */
+  document.addEventListener("click", (ev) => {
+    const a = ev.target.closest('a[href="#/contact"]');
+    if (a && location.hash === "#/contact") { ev.preventDefault(); const el = $("enquiry"); if (el) { el.scrollIntoView({ behavior: "smooth" }); el.querySelector("input").focus(); } }
+  });
 
   window.addEventListener("hashchange", render);
   render();
