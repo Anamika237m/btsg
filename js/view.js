@@ -14,7 +14,7 @@ const View = (() => {
   const callBtn = () => btn("Call " + C.phones[0], tel(C.phones[0]), "btn-line");
 
   return {
-    topbar: () => `<div class="wrap bar"><span>📞 ${C.phones[0]} &nbsp; ✉️ ${C.email} &nbsp; 📍 ${C.area}</span><b>${B.tagline}</b></div>`,
+    topbar: () => `<div class="wrap bar"><span>📞 <a href="${tel(C.phones[1])}">${C.phones[1]}</a> &nbsp; ✉️ ${C.email} &nbsp; 📍 ${C.area}</span><b>${B.tagline}</b></div>`,
     header: (cur) => `<div class="wrap hd"><a class="logo" href="#/home"><img src="${B.logo}" alt="Logo"><span><strong>${B.short}</strong><small>${B.sub}</small></span></a><nav>${h(M.nav.map(n => `<a href="#/${n[0]}" class="${n[0] === cur ? "on" : ""}">${n[1]}</a>`))}</nav>${btn("Request a Quote", "#/contact")}</div>`,
     footer: () => `<div class="wrap"><div class="fgrid"><div><div class="logo"><img src="${B.logo}" alt="Logo"><strong>${B.full}</strong></div><p>${B.about}</p></div>
       <div><h5>Company</h5><a href="#/about">About Us</a><a href="#/services">Our Services</a><a href="#/industries">Industries We Serve</a><a href="#/contact">Contact Us</a></div>
