@@ -11,11 +11,13 @@ const View = (() => {
   const steps = () => `<section class="dark"><div class="wrap center">${eb("OUR TECHNICAL APPROACH")}<h2>Five Principles Behind Every Service Call</h2><div class="steps">${h(M.steps.map((s, i) => `<div><b>${i + 1}</b><h4>${s[0]}</h4><p>${s[1]}</p></div>`))}</div></div></section>`;
   const cta = (t, d, buttons) => `<section class="wrap"><div class="cta"><div><h3>${t}</h3><p>${d}</p></div><div class="btns">${buttons}</div></div></section>`;
   const card = (ic, t, d) => `<div class="card">${ic ? `<span class="ic">${ic}</span>` : ""}<h4>${t}</h4>${Array.isArray(d) ? li(d) : `<p>${d}</p>`}</div>`;
+  const waLink = () => `https://wa.me/${C.phones[0].replace(/\D/g, "")}?text=${encodeURIComponent(C.waText)}`;
+  const quoteBtn = () => `<a class="btn btn-gold" href="${waLink()}" target="_blank" rel="noopener">Request a Quote</a>`;
   const callBtn = () => btn("Call " + C.phones[0], tel(C.phones[0]), "btn-line");
 
   return {
-    topbar: () => `<div class="wrap bar"><span>📞 <a href="${tel(C.phones[1])}">${C.phones[1]}</a> &nbsp; ✉️ ${C.email} &nbsp; 📍 ${C.area}</span><b>${B.tagline}</b></div>`,
-    header: (cur) => `<div class="wrap hd"><a class="logo" href="#/home"><img src="${B.logo}" alt="Logo"><span><strong>${B.short}</strong><small>${B.sub}</small></span></a><nav>${h(M.nav.map(n => `<a href="#/${n[0]}" class="${n[0] === cur ? "on" : ""}">${n[1]}</a>`))}</nav>${btn("Request a Quote", "#/contact")}</div>`,
+    topbar: () => `<div class="wrap bar"><span>📞 <a href="${tel(C.phones[0])}">${C.phones[0]}</a> &nbsp; ✉️ ${C.email} &nbsp; 📍 ${C.area}</span><b>${B.tagline}</b></div>`,
+    header: (cur) => `<div class="wrap hd"><a class="logo" href="#/home"><img src="${B.logo}" alt="Logo"><span><strong>${B.short}</strong><small>${B.sub}</small></span></a><nav>${h(M.nav.map(n => `<a href="#/${n[0]}" class="${n[0] === cur ? "on" : ""}">${n[1]}</a>`))}</nav>${quoteBtn()}</div>`,
     footer: () => `<div class="wrap"><div class="fgrid"><div><div class="logo"><img src="${B.logo}" alt="Logo"><strong>${B.full}</strong></div><p>${B.about}</p></div>
       <div><h5>Company</h5><a href="#/about">About Us</a><a href="#/services">Our Services</a><a href="#/industries">Industries We Serve</a><a href="#/contact">Contact Us</a></div>
       <div><h5>Services</h5><a href="#/services">Chiller Services</a><a href="#/services">Compressor Overhauling</a><a href="#/services">Annual Maintenance (AMC)</a><a href="#/services">Spare Parts Supply</a></div>
@@ -32,7 +34,7 @@ const View = (() => {
       <section class="dark slim"><div class="wrap counters">${h(d.counters.map(c => `<div><b data-count="${c[0]}" data-suffix="${c[1]}">0</b><small>${c[2]}</small></div>`))}</div></section>
       <section class="wrap two"><div>${eb("INDUSTRIES WE SERVE")}<h2>Trusted Across Hospitality, Commercial, Industrial &amp; Institutional Facilities</h2><p>${d.sectorsText}</p><div class="chips">${h(d.sectors.map(s => `<span>${s}</span>`))}</div>${btn("See All Industries &amp; Brands →", "#/industries", "btn-navy")}</div>
         <aside class="promise"><span class="ic">🏆</span><h4>Our Service Promise</h4><p>“${B.tagline}”</p><p>${d.promise}</p></aside></section>
-      ${cta(d.cta[0], d.cta[1], btn("Request a Quote", "#/contact") + callBtn())}`; },
+      ${cta(d.cta[0], d.cta[1], quoteBtn() + callBtn())}`; },
 
     about: () => { const d = M.about; return hero("about") + `
       <section class="wrap two"><div>${eb("1. ABOUT US")}<h2>Engineering Reliability Into Every Chiller Plant We Touch</h2>${h(d.paras.map(p => `<p>${p}</p>`))}</div>
@@ -46,13 +48,13 @@ const View = (() => {
     services: () => hero("services") + M.services.map((s, i) => `<section class="${i % 2 ? "tint" : ""}"><div class="wrap">${eb(s.n)}<h2>${s.t}</h2>${h((s.p || []).map(p => `<p class="lead">${p}</p>`))}
       ${s.list ? `<ul class="ticks cols3">${h(s.list.map(x => `<li>${x}</li>`))}</ul>` : ""}
       ${s.cards ? `<div class="grid ${s.cards.length === 4 ? "g4" : s.cards.length === 3 ? "g3" : "g2"}">${h(s.cards.map(x => card(...x)))}</div>` : ""}${s.note ? `<p class="note">${s.note}</p>` : ""}</div></section>`).join("")
-      + cta(M.servicesCta[0], M.servicesCta[1], btn("Request a Quote", "#/contact") + callBtn()),
+      + cta(M.servicesCta[0], M.servicesCta[1], quoteBtn() + callBtn()),
 
     industries: () => { const d = M.industries; return hero("industries") + `
       <section class="wrap center">${eb("17. INDUSTRIES WE SERVE")}<h2>Our Solutions Are Suitable for a Wide Range of Facilities</h2><div class="grid g4 left">${h(d.groups.slice(0, 4).map(x => card(...x)))}</div><div class="grid g1 left">${card(...d.groups[4])}</div></section>
       <section class="dark"><div class="wrap center">${eb("13. BRANDS &amp; EQUIPMENT EXPERTISE")}<h2>Our Technical Activities Cover Major HVAC &amp; Chiller Manufacturers</h2><p class="lead">${d.brandsText}</p><div class="brands">${h(d.brands.map(b => `<b>${b}</b>`))}</div></div></section>
       <section class="tint"><div class="wrap center">${eb("18. SERVICE &amp; SUPPORT")}<h2>Our Service Philosophy</h2><p class="lead">${d.philosophy}</p><h3 class="vals">${d.values}</h3><p class="lead">${d.after}</p></div></section>
-      ${cta(d.cta[0], d.cta[1], btn("Request a Quote", "#/contact"))}`; },
+      ${cta(d.cta[0], d.cta[1], quoteBtn())}`; },
 
     contact: () => { const rows = [["📍", "Registered Address", C.addressFull], ["📞", "Phone", phoneLinks()], ["✉️", "Email", C.email], ["🧾", "GSTIN", `${C.gstin} &nbsp;·&nbsp; ${C.gstNote}`], ["🕒", "Service Hours", C.hours]]; return hero("contact") + `
       <section class="wrap two"><div>${eb("CONTACT DETAILS")}<h2>We’re Here to Help</h2>${h(rows.map(r => `<div class="crow"><span class="ic sm">${r[0]}</span><div><b>${r[1]}</b><p>${r[2]}</p></div></div>`))}</div>
@@ -60,6 +62,6 @@ const View = (() => {
           <div class="f2"><label>Full Name *<input name="name" required placeholder="Your name"></label><label>Phone<input name="phone" placeholder="+91 XXXXX XXXXX"></label></div>
           <div class="f2"><label>Email *<input name="email" type="email" required placeholder="you@company.com"></label><label>Service Needed<select name="service">${h(M.serviceOptions.map(o => `<option>${o}</option>`))}</select></label></div>
           <label>Message *<textarea name="message" rows="4" required placeholder="Tell us about your chiller/HVAC system, equipment brand, and the issue or requirement..."></textarea></label>
-          <button class="btn btn-gold" type="submit">Send Enquiry</button><small>This form opens your email app addressed to ${C.email}.</small></form></section>`; }
+          <button class="btn btn-gold" type="submit">Send Enquiry</button><p id="formMsg" role="status"></p>${C.formKey ? "" : `<small>This form opens your email app addressed to ${C.email}.</small>`}</form></section>`; }
   };
 })();
