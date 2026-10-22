@@ -3,10 +3,12 @@ const Model = {
   brand: { short: "BTSG", full: "Bharat Technical Services Group", sub: "HVAC · CHILLER · REFRIGERATION ENGINEERING",
     tagline: "Keeping Your Chillers Running. Keeping Your Business Running.", logo: "assets/logo.png",
     about: "Reliable HVAC, chiller and refrigeration engineering services for commercial, industrial, hospitality and institutional facilities across Delhi NCR." },
-  contact: { phones: ["+91 81780 49475", "+91 836894 0081"], email: "btsg.delhi@gmail.com",
+  contact: { phones: ["+91 836894 0081"], email: "btsg.delhi@gmail.com",
     area: "Rohini, North West Delhi – 110085",
     address: "H.No-103, 2nd Floor, Block-F, Pocket-7A, Sector-16, Rohini, North West Delhi, Delhi – 110085",
     addressFull: "H.No-103, 2nd Floor, Block-F, Pocket-7A, Sector-16, Rohini, North West Delhi, Delhi – 110085, India",
+    waText: "Hello, I would like to request a quote.",
+    formKey: "", /* paste your Web3Forms access key between the quotes */
     gstin: "07AAXFB5251H1Z5", gstNote: "Regular, registered 31 March 2021", hours: "Monday – Saturday, 9:30 AM – 7:00 PM (emergency breakdown support by arrangement)" },
   nav: [["home", "Home"], ["about", "About Us"], ["services", "Services"], ["industries", "Industries"], ["contact", "Contact"]],
   steps: [["Inspect", "Detailed inspection of equipment and operating conditions."], ["Diagnose", "Identification of symptoms, alarms and root causes."], ["Recommend", "Technically appropriate repair or maintenance recommendations."], ["Execute", "Carrying out approved work using suitable tools & procedures."], ["Verify", "Testing equipment after completion to confirm satisfactory operation."]],
