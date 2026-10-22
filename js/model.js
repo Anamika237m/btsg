@@ -8,7 +8,7 @@ const Model = {
     address: "H.No-103, 2nd Floor, Block-F, Pocket-7A, Sector-16, Rohini, North West Delhi, Delhi – 110085",
     addressFull: "H.No-103, 2nd Floor, Block-F, Pocket-7A, Sector-16, Rohini, North West Delhi, Delhi – 110085, India",
     waText: "Hello, I would like to request a quote.",
-    formKey: "", /* paste your Web3Forms access key between the quotes */
+    formKey: "f11a40e2-665c-4602-a6e0-d292bbd01c56", /* paste your Web3Forms access key between the quotes */
     gstin: "07AAXFB5251H1Z5", gstNote: "Regular, registered 31 March 2021", hours: "Monday – Saturday, 9:30 AM – 7:00 PM (emergency breakdown support by arrangement)" },
   nav: [["home", "Home"], ["about", "About Us"], ["services", "Services"], ["industries", "Industries"], ["contact", "Contact"]],
   steps: [["Inspect", "Detailed inspection of equipment and operating conditions."], ["Diagnose", "Identification of symptoms, alarms and root causes."], ["Recommend", "Technically appropriate repair or maintenance recommendations."], ["Execute", "Carrying out approved work using suitable tools & procedures."], ["Verify", "Testing equipment after completion to confirm satisfactory operation."]],
